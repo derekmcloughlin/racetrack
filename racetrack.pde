@@ -52,10 +52,6 @@ void draw() {
   noStroke();
   rect(25, 25, 50, 50);
   
-  ypos = ypos -1;
-  
-
-  
   // Create a red rectangle whose centre is the new origin
   noFill();
   stroke(#FF0000);  
@@ -92,9 +88,9 @@ void draw() {
   text("R: " + hex(color_right, 6), 400, 20);
   
   // Now calculate error, proportional, integral and derivative
-  delay(10);
+  delay(100);
  
-  error = (color_left - color_right) / 100000;
+  error = (color_left - color_right) / 10000;
   proportional = error;
   integral = integral + error;
   derivative = error - previous_error;
@@ -102,6 +98,8 @@ void draw() {
   float correction = Kp * proportional + Ki * integral + Kd * derivative;
   
   angle = (error * 6)/ 360;
+  ypos = ypos + int(5 * cos(angle));
+  xpos = xpos - int(5 * sin(angle));
  
   fill(#FFFFFF);
   text("A: " + str(angle), 550, 20);
